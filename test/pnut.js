@@ -18,7 +18,7 @@ describe('The pnut API wrapper', function () {
 
     nock(root)
       .get('/v0/posts/streams/global')
-      .reply(200, {posts: 0})
+      .reply(200, {posts: 1})
   });
 
   after(function() {
@@ -31,6 +31,6 @@ describe('The pnut API wrapper', function () {
   });
 
   it('should get the global timeline', function() {
-    return pnut.global().should.become({'posts': 0})
+    return pnut.global().should.become({'posts': 1})
   })
 });
