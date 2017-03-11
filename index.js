@@ -43,16 +43,20 @@ const fetchPost = () => {
   })
 }
 
-setInterval(() => {
+function run() {
   fetchPost().then(post => {
     if (!post.you_reposted) {
       let id = post.id;
       console.log(`Reposting ${id}`);
       repost(id);
+
+      setTimeout(run, 900000) // Run every 15 min
     } else {
       console.log('Skipping…');
     }
   }).catch(err => {
     console.log(err);
   });
-}, 900000); // Every 15 min
+}
+
+run();
