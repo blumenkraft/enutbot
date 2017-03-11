@@ -3,7 +3,7 @@
 'use strict';
 
 const pnut = require('pnut-butter');
-pnut.token = ''; 
+pnut.token = process.env.PNUT_TOKEN || '';
 
 const charge = (post) => {
   post.bookmarkScore = post.counts.bookmarks * 10;
