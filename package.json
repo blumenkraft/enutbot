@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/blumenkraft/enutbot#readme",
   "dependencies": {
-    "pnut-butter": "git+https://github.com/kaiwood/pnut-butter.git"
+    "pnut-butter": "^0.0.8"
   }
 }

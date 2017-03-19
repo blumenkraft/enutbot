@@ -9,8 +9,8 @@ encoding@^0.1.11:
     iconv-lite "~0.4.13"
 
 es6-promise@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.0.5.tgz#7882f30adde5b240ccfa7f7d78c548330951ae42"
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.1.0.tgz#dda03ca8f9f89bc597e689842929de7ba8cebdf0"
 
 iconv-lite@~0.4.13:
   version "0.4.15"
@@ -27,20 +27,19 @@ isomorphic-fetch@^2.2.1:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
 
-node-fetch@^1.0.1, node-fetch@^1.6.3:
+node-fetch@^1.0.1:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.6.3.tgz#dc234edd6489982d58e8f0db4f695029abcd8c04"
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
 
-"pnut-butter@https://github.com/kaiwood/pnut-butter":
-  version "0.0.2"
-  resolved "https://github.com/kaiwood/pnut-butter#182e467c5b2a61c239df325f475b5aeaafcd81e2"
+pnut-butter@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/pnut-butter/-/pnut-butter-0.0.8.tgz#9d2dbacf499fb74da9ee146d56af0217b609497e"
   dependencies:
     es6-promise "^4.0.5"
     isomorphic-fetch "^2.2.1"
-    node-fetch "^1.6.3"
 
 whatwg-fetch@>=0.10.0:
   version "2.0.3"
