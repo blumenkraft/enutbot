@@ -32,16 +32,16 @@ function run() {
     return winner;
   }).then(winner => {
     if (!winner.you_reposted) {
-      console.log(`Reposting ${winner.id}`);
+      console.log(new Date(), `Reposting ${winner.id}`);
       return repost(winner);
     } else {
-      console.log(`Already reposted ${winner.id}`);
+      console.log(new Date(), `Already reposted ${winner.id}`);
       return winner;
     }
   }).then(result => {
     setTimeout(run, 3600000);
   }).catch(err => {
-    console.error(err);
+    console.error(new Date(), err);
   })
 }
 
