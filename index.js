@@ -5,7 +5,15 @@
 const pnut = require('pnut-butter');
 pnut.token = process.env.PNUT_TOKEN || '';
 
-const charge = (post) => {
+function getTrendingPosts() {
+  return pnut.custom('/posts/streams/explore/trending');
+}
+
+function repost(post) {
+  return pnut.custom(`/posts/${post.id}/repost`, 'PUT')
+}
+
+function charge(post) {
   post.bookmarkScore = post.counts.bookmarks * 10;
   post.replyScore = post.counts.replies * 20;
   post.repostScore = post.counts.reposts * 15;
@@ -15,48 +23,26 @@ const charge = (post) => {
   return post;
 }
 
-const repost = (postId) => {
-  pnut.custom(`/posts/'${postId}/repost`, 'PUT').then(res => {
-    console.log(res);
-  }, err => {
-    console.log(err);
-  })
-}
-
-const fetchPost = () => {
-  return new Promise((resolve, reject) => {
-    pnut.custom('/posts/streams/explore/trending').then((res) => {
-
-      const scorePool = [];
-      res.data.forEach(post => {
-
-        let scoredPost = charge(post);
-        scorePool.push(scoredPost);
-      })
-
-      let winner = scorePool.sort((a, b) => b.score - a.score)[0];
-
-      resolve(winner)
-    }).catch(e => {
-      reject(e);
-    });
-  })
-}
-
 function run() {
-  fetchPost().then(post => {
-    if (!post.you_reposted) {
-      let id = post.id;
-      console.log(`Reposting ${id}`);
-      repost(id);
+  getTrendingPosts().then(posts => {
+    posts = posts.data.map(post => charge(post));
+    posts = posts.sort((a, b) => b.score - a.score);
+    let winner = posts[0];
 
-      setTimeout(run, 900000) // Run every 15 min
+    return winner;
+  }).then(winner => {
+    if (!winner.you_reposted) {
+      console.log(`Reposting ${winner.id}`);
+      return repost(winner);
     } else {
-      console.log('Skipping…');
+      console.log(`Already reposted ${winner.id}`);
+      return winner;
     }
+  }).then(result => {
+    setTimeout(run, 3600000);
   }).catch(err => {
-    console.log(err);
-  });
+    console.error(err);
+  })
 }
 
 run();
